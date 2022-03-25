@@ -34,3 +34,4 @@ jobs:
           docker run msys2-base c:\windows\system32\whoami.exe /all
           docker run msys2-base c:\msys64\usr\bin\bash -lc "/c/chkuname.sh"
           docker run msys2-base c:\msys64\usr\bin\bash -lc "/c/test.sh"
+        timeout-minutes: 3
