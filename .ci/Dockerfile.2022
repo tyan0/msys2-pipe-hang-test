@@ -2,6 +2,7 @@ FROM mcr.microsoft.com/windows/servercore:ltsc2022
 
 COPY ./msys2-base-x86_64-20220319.sfx.exe /msys2.exe
 COPY ./test.sh /test.sh
+COPY ./chkuname.sh /chkuname.sh
 COPY ./artifacts/usr/bin/msys-2.0.dll /msys20.dll
 
 RUN powershell -Command \
