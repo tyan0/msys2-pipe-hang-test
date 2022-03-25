@@ -14,24 +14,25 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
         
-      - name: Download artifacts
-        uses: dawidd6/action-download-artifact@v2
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          repo: msys2/msys2-runtime
-          workflow: build.yaml
-          pr: 88
-          name: install
-          path: artifacts
+#      - name: Download artifacts
+#        uses: dawidd6/action-download-artifact@v2
+#        with:
+#          github_token: ${{ secrets.GITHUB_TOKEN }}
+#          repo: msys2/msys2-runtime
+#          workflow: build.yaml
+#          pr: 88
+#          name: install
+#          path: artifacts
 
       - name: Build image
         shell: cmd
         run: |
           curl -LO https://github.com/msys2/msys2-installer/releases/download/2022-03-19/msys2-base-x86_64-20220319.sfx.exe
+          curl -LO https://tyan0.yr32.net/msys2/msys-2.0-20220325.dll
           docker build -t msys2-base -f ./.ci/Dockerfile.${{ matrix.image }} .
       - name: Test
         run: |
           docker run msys2-base c:\windows\system32\whoami.exe /all
           docker run msys2-base c:\msys64\usr\bin\bash -lc "/c/chkuname.sh"
-          docker run -t msys2-base c:\msys64\usr\bin\bash -lc "/c/test.sh"
+          docker run msys2-base c:\msys64\usr\bin\bash -lc "/c/test.sh"
         timeout-minutes: 2
